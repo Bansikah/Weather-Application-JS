@@ -85,6 +85,10 @@ h1{
     max-width: 120px;
     margin-top: -15px;
 }
+.current-weather .icon{
+    text-align: center;
+}
+
 .current-weather .icon h4{
     margin-top: -10px;
     text-transform: capitalize;

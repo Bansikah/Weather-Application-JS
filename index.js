@@ -53,6 +53,7 @@ const getWeatherDetials = (cityName, lat, lon) => {
 
         // console.log(fiveDaysForecast);
         // Creating weather cards and adding them to DOM
+        
         fiveDaysForecast.forEach((weatherItem, index) => {
             if (index === 0) {
 
