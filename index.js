@@ -1,5 +1,6 @@
 const cityInput = document.querySelector(".city-input");
 const searchButton = document.querySelector(".search-btn");
+const locationButton = document.querySelector(".location-btn");
 const currentWeatherDiv = document.querySelector(".current-weather");
 const weatherCardsDiv = document.querySelector(".weather-cards");
 
@@ -53,7 +54,7 @@ const getWeatherDetials = (cityName, lat, lon) => {
 
         // console.log(fiveDaysForecast);
         // Creating weather cards and adding them to DOM
-        
+
         fiveDaysForecast.forEach((weatherItem, index) => {
             if (index === 0) {
 
@@ -90,4 +91,19 @@ const getCityCoordinates = () => {
 
 }
 
+const getUserCoordinates = () => {
+   navigator.geolocation.getCurrentPosition(
+    position => {
+        const { latitude, longitude } = position.coords;
+        
+    },
+    error => {
+        if(error.code === error.PERMISSION_DENIED){
+            alert("Geolocation request deniel. Please reset location permission to grant access again.");
+        }
+    }
+   );
+}
+
+searchButton.addEventListener("click", getUserCoordinates);
 searchButton.addEventListener("click", getCityCoordinates);
