@@ -30,13 +30,14 @@ const getWeatherDetials = (cityName, lat, lon) => {
         }
     });
 
-//This is where is ended to be continued...............
+    //Clearing previous weather data
+    cityInput.value = "";
+    weatherCardsDiv.innerHTML = "";
+
     console.log(fiveDaysForecast);
     fiveDaysForecast.forEach(weatherItem => {
     weatherCardsDiv.insertAdjacentHTML("beforeend", createWeatherCard(weatherItem));
      
-
-
     });//
 }).catch(()=> {
     alert("An error occured while fetching weather forecast!");
