@@ -1,5 +1,6 @@
 const cityInput = document.querySelector(".city-input");
 const searchButton = document.querySelector(".search-btn");
+const weatherCardsDiv = document.querySelector(".weather-cards");
 
 
 const API_key = "d80ac77e5e68048eec0a7c5cc997f192"; // API key for OpenWeatherMap API
@@ -7,11 +8,11 @@ const API_key = "d80ac77e5e68048eec0a7c5cc997f192"; // API key for OpenWeatherMa
 const  createWeatherCard = (weatherItem) =>{
     return `
     <li class="card">
-    <h3>(2023-06-19)</h3>
-    <img src="https://openweathermap.org/img/wn/10d@2x.png" alt="Weather icon">
-    <h4>Temp: 19.10°C</h4>
-    <h4>Wind: 4.31 M/S</h4>
-    <h4>Humidity: 79%</h4>
+    <h3>(${weatherItem.dt_txt.split("")[0]})</h3>
+    <img src="https://openweathermap.org/img/wn/${weatherItem.weather[0].icon}@2x.png" alt="Weather icon">
+    <h4>Temp: ${(weatherItem.main.temp - 273.15).toFixed(2)}°C</h4>
+    <h4>Wind: ${weatherItem.wind.speed} M/S</h4>
+    <h4>Humidity: ${weatherItem.main.humidity}</h4>
 </li>`;
 }
 
@@ -32,7 +33,8 @@ const getWeatherDetials = (cityName, lat, lon) => {
 //This is where is ended to be continued...............
     console.log(fiveDaysForecast);
     fiveDaysForecast.forEach(weatherItem => {
-     createWeatherCard(weatherItem);
+    weatherCardsDiv.insertAdjacentHTML("beforeend", createWeatherCard(weatherItem));
+     
 
 
     });//
