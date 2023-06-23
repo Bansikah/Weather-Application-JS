@@ -82,7 +82,7 @@ const getCityCoordinates = () => {
 
     //Get entered city coordinates (latitude, longitude, and name) from the API response
     fetch(GEOCODING_API_URL).then(res => res.json()).then(data => {
-        if (!data.lenght) return alert(`An error occured while fetching the coordinates!`);
+        if (!data.lenght) return alert(`No coordinates found for ${cityName}`);
         const { name, lat, lon } = data[0];
         getWeatherDetials(name, lat, lon);
     }).catch(() => {
@@ -95,7 +95,16 @@ const getUserCoordinates = () => {
    navigator.geolocation.getCurrentPosition(
     position => {
         const { latitude, longitude } = position.coords;
-        
+        const REVERSE_GEOCODING_URL = `http://api.openweathermap.org/geo/1.0/reverse?lat=${latitude}&lon=${longitude}&limit=1&appid=${API_KEY}`;
+       
+        //City name from coordinates using reverse API
+        fetch(REVERSE_GEOCODING_URL).then(res => res.json()).then(data => {
+            const { name } = data[0];
+            getWeatherDetials(name, latitude, longitude);
+        }).catch(() => {
+            alert("An error occured while fetching the CITY!");
+        });
+    
     },
     error => {
         if(error.code === error.PERMISSION_DENIED){
